@@ -45,15 +45,15 @@ class ActorCritic(OnPolicy):
   
 class ActorCritic_Large(OnPolicy):
     def __init__(self, in_shape, num_actions):
-        super(ActorCritic_KeyCollect, self).__init__()
+        super(ActorCritic_Large, self).__init__()
 
         self.in_shape = in_shape
         self.in_channels = in_shape[0]
 
         self.features = nn.Sequential(
-            nn.Conv2d(self.in_channels, out_channels=32, kernel_size=8, stride=4),
+            nn.Conv2d(self.in_channels, out_channels=32, kernel_size=5, stride=1),
             nn.ReLU(),
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=4, stride=2),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1),
             nn.ReLU(),
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1),
             nn.ReLU()
