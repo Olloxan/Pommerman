@@ -13,12 +13,12 @@ from pommerman.envs.v0 import Pomme
 from pommerman.characters import Bomber
 from pommerman import utility
 
-from common.actor_critic import ActorCritic, RolloutStorage
+from common.actor_critic import ActorCritic_Large, RolloutStorage
 from common.multiprocessing_env import SubprocVecEnv
 from common.logger import Logger
 from common.myTimer import myTimer
 
-sys.argv.append("AC_Pommer´_vs_simple_64x10e6x5")
+sys.argv.append("AC_Pommer_Large_vs_simple_64x10e6x5")
 
 logger = Logger()
 timer = myTimer()
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     alpha = 0.99
 
     #Init a2c and rmsprop
-    agent1 = ActorCritic(state_shape, num_actions)
+    agent1 = ActorCritic_Large(state_shape, num_actions)
     
     optimizer1 = optim.RMSprop(agent1.parameters(), lr, eps=eps, alpha=alpha)    
 

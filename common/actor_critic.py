@@ -43,6 +43,46 @@ class ActorCritic(OnPolicy):
         return features
 
   
+class ActorCritic_Large(OnPolicy):
+    def __init__(self, in_shape, num_actions):
+        super(ActorCritic_KeyCollect, self).__init__()
+
+        self.in_shape = in_shape
+        self.in_channels = in_shape[0]
+
+        self.features = nn.Sequential(
+            nn.Conv2d(self.in_channels, out_channels=32, kernel_size=8, stride=4),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=4, stride=2),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1),
+            nn.ReLU()
+        )
+        
+        fc_size = 512        
+        self.fc = nn.Sequential(
+            nn.Linear(self.feature_size(), fc_size),
+            nn.ReLU()
+        )
+
+        self.critic  = nn.Linear(fc_size, 1)
+        self.actor   = nn.Linear(fc_size, num_actions)
+
+    def forward(self, x):            
+        x = self.features(x)        
+        x = x.view(x.size(0), -1)
+        x = self.fc(x)
+        logit = self.actor(x)
+        value = self.critic(x)
+        return logit, value
+
+    def feature_size(self):       
+        convoutput1 = self.calculate_conv_output(self.in_shape[1:3], 32, 8, 4)       
+        convoutput2 = self.calculate_conv_output(convoutput1[1:3], 64, 4, 2)
+        convoutput3 = self.calculate_conv_output(convoutput2[1:3], 64, 3, 1)
+        features = int(np.prod(convoutput3))
+        return features
+
 class RolloutStorage(object):
     def __init__(self, num_steps, num_envs, state_shape):
         self.num_steps = num_steps

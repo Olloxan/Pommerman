@@ -146,10 +146,11 @@ class Pomme(gym.Env):
             obs['step_count'] = self._step_count
         return self.observations
 
-    def _get_rewards(self):
+    def _get_rewards(self):        
         rewards = self.model.get_rewards(self._agents, self._game_type,
                                       self._step_count, self._max_steps)
-        return rewards
+        wallcount = len([field for field in self._board if field == 2]) 
+        return (rewards - (wallcount * 0.5))
 
     def _get_done(self):
         return self.model.get_done(self._agents, self._step_count,
@@ -184,9 +185,8 @@ class Pomme(gym.Env):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
 
-    def step(self, actions):
+    def step(self, actions):       
         self._intended_actions = actions
-
         max_blast_strength = self._agent_view_size or 10
         result = self.model.step(
             actions,
@@ -198,7 +198,7 @@ class Pomme(gym.Env):
             max_blast_strength=max_blast_strength)
         self._board, self._agents, self._bombs, self._items, self._flames = \
                                                                     result[:5]
-        self._last_board = self._board # for reward calculation
+       
         done = self._get_done()
         obs = self.get_observations()
         reward = self._get_rewards()
