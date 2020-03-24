@@ -2,7 +2,7 @@ import os
 import sys
 import numpy as np
 
-from pommerman.agents import SimpleAgent, RandomAgent, PlayerAgent, BaseAgent
+from pommerman.agents import SimpleAgent, RandomAgent, PlayerAgent, BaseAgent, StaticAgent
 from pommerman.configs import ffa_v0_fast_env
 from pommerman.envs.v0 import Pomme
 from pommerman.characters import Bomber
@@ -42,7 +42,7 @@ env.action_space.n
 # Add 3 random agents
 agents = {}
 for agent_id in range(3):
-    agents[agent_id] = SimpleAgent(config["agent"](agent_id, config["game_type"]))
+    agents[agent_id] = StaticAgent(config["agent"](agent_id, config["game_type"]))
 
 # Add human agent
 
