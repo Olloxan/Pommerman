@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{a18f1b7c-3864-4519-9868-67391a6b1720}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>AC_Pommerman.py</StartupFile>
+    <StartupFile>Pommerman_human.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
