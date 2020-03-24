@@ -151,7 +151,7 @@ class Pomme(gym.Env):
                                       self._step_count, self._max_steps)
         temp_board = self._board.reshape(-1)
         wallcount = len([field for field in temp_board if field == 2]) 
-        return [reward - (wallcount * 0.5) for reward in rewards] 
+        return [reward - (wallcount * 0.1) for reward in rewards] 
 
     def _get_done(self):
         return self.model.get_done(self._agents, self._step_count,
