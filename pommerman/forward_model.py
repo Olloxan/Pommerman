@@ -638,15 +638,15 @@ class ForwardModel(object):
         if game_type == constants.GameType.FFA:
             if len(alive_agents) == 1:
                 # An agent won. Give them +1, others -1.
-                #return [2 * int(agent.is_alive) - 1 for agent in agents]
-                return [(2 * int(agent.is_alive) - 1) * 10 for agent in agents]
+                return [2 * int(agent.is_alive) - 1 for agent in agents]
+                #return [(2 * int(agent.is_alive) - 1) * 10 for agent in agents]
             elif step_count >= max_steps:
                 # Game is over from time. Everyone gets -1.
                 return [-1 for agent in agents] #[-1] * 4
             else:
                 # Game running: 0 for alive, -1 for dead.
-                #return [int(agent.is_alive) - 1 for agent in agents]
-                return [(int(agent.is_alive) - 1) - 0.1 for agent in agents]
+                return [int(agent.is_alive) - 1 for agent in agents]
+                #return [(int(agent.is_alive) - 1) - 0.1 for agent in agents]
         elif game_type == constants.GameType.OneVsOne:
             if len(alive_agents) == 1:
                 # An agent won. Give them +1, the other -1.
