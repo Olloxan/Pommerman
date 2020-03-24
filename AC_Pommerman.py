@@ -18,7 +18,7 @@ from common.multiprocessing_env import SubprocVecEnv
 from common.logger import Logger
 from common.myTimer import myTimer
 
-sys.argv.append("AC_Pommer_64x1e6x5")
+sys.argv.append("AC_Pommer_newLoss_64x1e6x5")
 
 logger = Logger()
 timer = myTimer()
