@@ -250,11 +250,12 @@ def _compute_safe_actions(obs, exclude_kicking=False, prev_two_obs=(None,None)):
                 ret.add(direction.value)
                 kick_dir=direction.value
         gone_flame_pos=None
-        if (prev_two_obs[0]!=None and prev_two_obs[1]!=None) and _check_if_flame_will_gone(obs, prev_two_obs, position):
-            #three consecutive flames means next step this position must be good
-            #make this a candidate
-            obs['board'][position]=constants.Item.Passage.value
-            gone_flame_pos=position
+        if prev_two_obs is not None:            
+            if (prev_two_obs[0]!=None and prev_two_obs[1]!=None) and _check_if_flame_will_gone(obs, prev_two_obs, position):
+                #three consecutive flames means next step this position must be good
+                #make this a candidate
+                obs['board'][position]=constants.Item.Passage.value
+                gone_flame_pos=position
 
         if utility.position_is_passage(board, position) or utility.position_is_powerup(board, position):
             my_id=obs['board'][my_position]
@@ -315,8 +316,8 @@ def _compute_safe_actions(obs, exclude_kicking=False, prev_two_obs=(None,None)):
 def get_filtered_actions(obs, prev_two_obs=None):
     if obs['board'][obs['position']] not in obs['alive']:
         return [constants.Action.Stop.value]
-    obs_cpy=copy.deepcopy(obs)
-    if prev_two_obs[-1] is not None:
+    obs_cpy=copy.deepcopy(obs)    
+    if prev_two_obs is not None and prev_two_obs[-1] is not None:
         obs=move_moving_bombs_to_next_position(prev_two_obs[-1], obs)
     ret=_compute_safe_actions(obs,exclude_kicking=NO_KICKING, prev_two_obs=prev_two_obs)
     obs=obs_cpy
