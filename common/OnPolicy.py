@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class OnPolicy(nn.Module):
     def __init__(self):
         super(OnPolicy, self).__init__()
@@ -9,12 +10,15 @@ class OnPolicy(nn.Module):
     def forward(self, x):
         raise NotImplementedError
         
-    def act(self, x, deterministic=False):       
+    def act(self, x, deterministic=False, smart=False):       
         logit, value = self.forward(x)                       
         probs = F.softmax(logit, dim=1)       
         
         if deterministic:
             action = probs.max(1)[1]
+        elif smart:
+            # filter actions
+            d=5
         else:
             action = probs.multinomial(num_samples=1)
         
