@@ -28,7 +28,7 @@ USE_CUDA = torch.cuda.is_available()
 # Instantiate the environment
 config = ffa_v0_fast_env()
 
-num_envs = 64
+num_envs = 2
 num_players = 2
 
 player0 = 0

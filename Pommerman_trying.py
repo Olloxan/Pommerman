@@ -2,7 +2,7 @@ import os
 import sys
 import numpy as np
 
-from pommerman.agents import SimpleAgent, RandomAgent, PlayerAgent, BaseAgent
+from pommerman.agents import SimpleAgent, TrainingAgent
 from pommerman.configs import ffa_v0_fast_env
 from pommerman.envs.v0 import Pomme
 from pommerman.characters import Bomber
@@ -35,12 +35,21 @@ config = ffa_v0_fast_env()
 
 env = Pomme(**config["env_kwargs"])
 
+# actions
 
+# actions
+#nothing : 0
+#key.UP : 1,
+#key.DOWN : 2,
+#key.LEFT : 3,
+#key.RIGHT : 4,
+#key.SPACE : 5, --> Bomb
 
 # Add four random agents
 agents = {}
-for agent_id in range(2):
-    agents[agent_id] = RandomAgent(config["agent"](agent_id, config["game_type"]))
+
+agents[0] = SimpleAgent(config["agent"](0, config["game_type"]))
+agents[1] = SimpleAgent(config["agent"](1, config["game_type"]))
 env.set_agents(list(agents.values()))
 env.set_init_game_state(None)
 
@@ -53,6 +62,7 @@ done = False
 while not done:
     env.render()
     actions = env.act(obs)
+    actions[0] = 0
     obs, reward, done, info = env.step(actions)
 env.render(close=True)
 env.close()

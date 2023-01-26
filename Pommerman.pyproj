@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{a18f1b7c-3864-4519-9868-67391a6b1720}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>Pommerman_random.py</StartupFile>
+    <StartupFile>Pommerman_trying.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -84,6 +84,9 @@
     <Compile Include="pommerman\runner\__init__.py" />
     <Compile Include="pommerman\utility.py" />
     <Compile Include="pommerman\__init__.py" />
+    <Compile Include="Pommerman_trying.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="simple_ffa_run.py" />
     <Compile Include="main.py">
       <SubType>Code</SubType>
